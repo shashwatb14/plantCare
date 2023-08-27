@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+
+{% block main %}
+<div id="nameform">
+    <br class="user-select-none">
+    <h1>🌱 Plant Care</h1>
+    <br class="user-select-none">
+    <form action="/name" method="post">
+        <div>
+            <div>
+                <label for="name">Name: </label>
+                <input type="text" class="form-control" id="name" placeholder="John Doe" autocomplete="off" name="name">
+            </div>
+        </div>
+        <br class="user-select-none">
+        <button type="submit">Dive in!</button>
+    </form>
+</div>
+{% endblock %}

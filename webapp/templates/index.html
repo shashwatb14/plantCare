@@ -1,0 +1,54 @@
+{% extends "layout.html" %}
+
+{% block main %}
+<h1>Hello, {{ name }}!</h1>
+<span id="flaskTime" class="invisible">{{ time_last_watered }}</span>
+<div id="time">
+    <h2><u>Last watered💧</u></h2>
+    <div id="timer">
+        <script>
+            // Wrap your JavaScript code in an event listener for DOMContentLoaded
+            document.addEventListener("DOMContentLoaded", function() {
+                // Set the timestamp when the plant was last watered
+                var time_last_watered = parseInt(document.getElementById("flaskTime").innerHTML, 10);
+
+                
+                // Update the countdown every 1 second
+                var x = setInterval(function() {
+                    // Get the current timestamp in seconds
+                    var nowInSeconds = Math.floor(new Date().getTime() / 1000);
+                    
+                    // Calculate the time difference in seconds
+                    var elapsedSeconds = nowInSeconds - time_last_watered;
+                    
+                    // Calculate hours, minutes, and seconds
+                    var hours = Math.floor(elapsedSeconds / 3600);
+                    var minutes = Math.floor((elapsedSeconds % 3600) / 60);
+                    var seconds = elapsedSeconds % 60;
+                    
+                    // Format numbers to have two digits (pad with leading zeros)
+                    hours = hours.toString().padStart(2, '0');
+                    minutes = minutes.toString().padStart(2, '0');
+                    seconds = seconds.toString().padStart(2, '0');
+                    
+                    // Display the formatted time in the element with id="timer"
+                    document.getElementById("timer").innerHTML = hours + ":" + minutes + ":" + seconds;
+                    
+                }, 1000);
+            });
+        </script>        
+    </div>
+</div>
+<div id="data">
+    <table>
+        <tr>
+            <td><img src="../static/water.png">{{ water }}</td>
+            <td><img src="../static/light.png">{{ light }}</td>
+        </tr>
+        <tr>
+            <td><img src="../static/humidity.png">{{ humidity }}</td>
+            <td><img src="../static/temp.png">{{ temp }}</td>
+        </tr>
+    </table>
+</div>
+{% endblock %}

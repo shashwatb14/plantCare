@@ -1,0 +1,122 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+:root {
+    --eggshell: #EEEBD3;
+    --slate: #255957;
+    --bistre: #412722;
+    --brown: #8F754F;
+    --tangerine: #F08A4B;
+    --radius: 8px;
+}
+
+* {
+    font-family: 'Poppins', sans-serif;
+    transition: all 0.2s ease;
+}
+
+body {
+    margin: 0;
+    padding: 10px;
+    background-color: var(--eggshell);
+    color: var(--slate);
+}
+
+h1 {
+    text-align: center;
+}
+
+.user-select-none {
+    user-select: none;
+}
+
+#nameform {
+    text-align: center;
+    font-weight: bolder;
+    margin-top: 10%;
+    font-size: 160%;
+}
+
+label {
+    font-size: 80%;
+}
+
+input[type=text] {
+    border: 2px var(--slate) solid;
+    border-radius: var(--radius);
+    background-color: var(--eggshell);
+    color: var(--slate);
+    width: 20%;
+    margin: 8px;
+}
+
+input[type=text]:focus {
+    border: 2px var(--bistre) solid !important;
+    border-color: #255957;
+}
+
+button {
+    background-color: var(--slate);
+    border: none;
+    color: var(--eggshell) !important;
+    padding: 16px 32px;
+    cursor: pointer;
+    border-radius: var(--radius);
+    font-size: 80%;
+}
+
+button:hover {
+    background-color: #1b3837;
+}
+
+::selection {
+    background-color: var(--bistre);
+    color: var(--tangerine);
+}
+
+#time {
+    border: 2px var(--brown) solid;
+    border-radius: var(--radius);
+    margin-left: 5%;
+    margin-right: 5%;
+    text-align: center;
+    margin-bottom: 2%;
+}
+
+#timer {
+    color: var(--bistre);
+    letter-spacing: 16px;
+    margin: 3%;
+    font-size: 200%;
+    font-weight: bolder;
+}
+
+.invisible {
+    font-size: 0.01%;
+    color: transparent;
+    user-select: none;
+    margin: 0;
+    padding: 0;
+}
+
+table {
+    margin-left: 5%;
+    margin-right: 5%;
+    width: 80%;
+    
+}
+
+#data {
+    display: flex;
+    justify-content: center;
+}
+
+td {
+    border: 2px var(--bistre) solid;
+    border-radius: var(--radius);
+    padding: 5%;
+}
+
+img {
+    width: 10%;
+    display: inline-block;
+}
