@@ -1,61 +1,61 @@
 #include <Arduino.h>
 #include <Servo.h>
-#include <DHT.h>
+
 
 #define SERVO_PIN 9
-#define DHT_PIN 8
-#define DHT_TYPE DHT11
 #define LIGHT_SENSOR_PIN A1
-#define POWER_PIN  7
+#define POWER_PIN 7
 #define SIGNAL_PIN A5
 
+
 Servo myservo;
-DHT dht(DHT_PIN, DHT_TYPE);
+
 
 const int wateringDuration = 2000; // 2 seconds
+
+
 void setup() {
   Serial.begin(9600);
   myservo.attach(SERVO_PIN);
-  dht.begin();
-  delay(2000); // Wait for sensor to initialize
   pinMode(LIGHT_SENSOR_PIN, INPUT);
-  pinMode(POWER_PIN, OUTPUT);
-  digitalWrite(POWER_PIN, LOW);
+  pinMode(POWER_PIN, OUTPUT); // configure D7 pin as an OUTPUT
+  digitalWrite(POWER_PIN, LOW); // turn the sensor OFF
 }
 
+
 void loop() {
-  digitalWrite(POWER_PIN, LOW);  // turn the sensor ON
-  int soilMoisture = analogRead(SIGNAL_PIN);
+  digitalWrite(POWER_PIN, LOW); // turn the sensor ON
+  int soilMoisture = analogRead(SIGNAL_PIN); // read the analog value from sensor
   int lightLevel = analogRead(LIGHT_SENSOR_PIN);
-  float t = dht.readTemperature(); // Read temperature
-  float h = dht.readHumidity();    // Read humidity
+  String light_condition = "";
+  String soil_condition = "";
 
-  Serial.print("TEMP: ");
-  Serial.println(t);
-
-  delay(2000);
-
-  Serial.print("HUM: ");
-  Serial.println(h);
-
-  delay(2000);
   if (lightLevel < 400) {
-    Serial.println("light low");
+    waterPlant();
+    light_condition = "light low";
+  } else {
+    light_condition = "light okay";
   }
 
   if (soilMoisture < 650) {
-    Serial.println("WET");
+    waterPlant();
+    soil_condition = "DRY";
   } else {
-    Serial.println("DRY");
+    soil_condition = "WET";
   }
 
-  Serial.print("1 ");
-  Serial.println(soilMoisture);
+  // Send data as a comma-separated string
+  String sensor_data = light_condition + "," + soil_condition;
+  Serial.println(sensor_data);
+
+  delay(5000);  // Delay for a second
 }
+
+
 
 void waterPlant() {
   myservo.write(90); // Start watering
   delay(wateringDuration);
-  myservo.write(0);  // Stop watering
+  myservo.write(0); // Stop watering
   delay(1000);
 }
